@@ -1,0 +1,53 @@
+# Control taxonomy draft.
+# Control mappings will be expanded after threat taxonomy review.
+
+controls:
+  - id: CT001
+    name: Strong Authentication
+    description: Authenticate human and workload identities before granting AI access.
+    implemented_by: [I01]
+
+  - id: CT002
+    name: Least-Privilege Authorization
+    description: Restrict agents and tools to the minimum resources and actions required.
+    implemented_by: [I02]
+
+  - id: CT003
+    name: Scoped Credential Brokering
+    description: Issue short-lived, narrowly scoped credentials instead of persistent broad secrets.
+    implemented_by: [I03]
+
+  - id: CT004
+    name: Prompt and Content Guardrails
+    description: Detect or constrain malicious instructions and unsafe model inputs or outputs.
+    implemented_by: [C01]
+
+  - id: CT005
+    name: Tool Permission Enforcement
+    description: Validate tool selection, arguments, target resources, and action sensitivity before execution.
+    implemented_by: [C01, I02]
+
+  - id: CT006
+    name: Human Approval for High-Impact Actions
+    description: Require human confirmation before irreversible, privileged, financial, destructive, or externally visible actions.
+    implemented_by: [C01, I02]
+
+  - id: CT007
+    name: AI Activity Logging and Traceability
+    description: Capture model calls, tool calls, agent decisions, identity, context sources, and outcomes.
+    implemented_by: [C02]
+
+  - id: CT008
+    name: AI Evaluation and Red Teaming
+    description: Test models and AI systems for jailbreaks, unsafe behavior, regressions, and misuse scenarios.
+    implemented_by: [C03]
+
+  - id: CT009
+    name: AI Asset Inventory and Provenance
+    description: Maintain ownership, versions, approvals, source, dependencies, and provenance for AI assets.
+    implemented_by: [C04, L02]
+
+  - id: CT010
+    name: Data Classification and DLP
+    description: Prevent sensitive data from entering unauthorized models, tools, logs, or external services.
+    implemented_by: [C01, C04]

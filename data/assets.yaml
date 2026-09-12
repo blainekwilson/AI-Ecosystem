@@ -1,0 +1,323 @@
+assets:
+- id: AS001
+  name: System Prompt / System Instructions
+  category: prompt_instruction
+  description: High-priority instructions that define expected model or agent behavior, constraints, role,
+    and operating policy.
+  examples:
+  - System prompt
+  - Agent system instructions
+  - Hidden behavioral instructions
+- id: AS002
+  name: User Prompt / User Input
+  category: prompt_instruction
+  description: Human- or system-supplied instructions, questions, commands, or content submitted to an
+    AI application or agent.
+  examples:
+  - Chat message
+  - API prompt
+  - Automated task instruction
+- id: AS003
+  name: Prompt Template
+  category: prompt_instruction
+  description: Reusable structured prompt or instruction template populated with runtime variables, context,
+    retrieved content, or user input.
+  examples:
+  - RAG prompt template
+  - Agent task template
+  - Evaluation prompt template
+  - MCP prompt template
+- id: AS004
+  name: Runtime Tool / Capability Instructions
+  category: prompt_instruction
+  description: Runtime-serialized tool or capability descriptions, schemas, and usage guidance presented
+    to a model or agent as part of its context. This is derived from, but distinct from, the canonical
+    registered tool or capability definition.
+  examples:
+  - Function description presented to a model
+  - Runtime tool schema
+  - Serialized capability instructions
+- id: AS005
+  name: Source Dataset
+  category: data_knowledge
+  description: Raw or curated data used for training, fine-tuning, evaluation, retrieval, grounding, or
+    other AI processing.
+  examples:
+  - Training dataset
+  - Fine-tuning dataset
+  - Enterprise document corpus
+  - Public dataset
+- id: AS006
+  name: Retrieved Content
+  category: interaction_data
+  description: Content returned by a retrieval system and supplied to context construction or downstream
+    AI processing.
+  examples:
+  - Retrieved document chunks
+  - Search results
+  - Knowledge graph results
+- id: AS007
+  name: Embedded / Indexed Content
+  category: data_knowledge
+  description: Processed content, embeddings, metadata, or index records stored for semantic or lexical
+    retrieval.
+  examples:
+  - Vector embeddings
+  - Search index entries
+  - Chunk metadata
+- id: AS008
+  name: Knowledge Graph Content
+  category: data_knowledge
+  description: Structured entities, relationships, attributes, provenance, or other graph-based knowledge
+    used by AI systems.
+  examples:
+  - Entities
+  - Relationships
+  - Ontology data
+- id: AS009
+  name: AI Memory / Persistent State
+  category: data_knowledge
+  description: Persistent or semi-persistent state retained across interactions to support continuity,
+    personalization, planning, or agent behavior.
+  examples:
+  - Conversation memory
+  - User preferences
+  - Agent working memory
+  - Long-term memory
+- id: AS010
+  name: Runtime Context
+  category: interaction_data
+  description: The assembled and potentially evolving context for a specific interaction or agentic execution,
+    composed from instructions, user input, memory, retrieved content, state, and capability information.
+    It may span multiple inference calls.
+  examples:
+  - Model context window
+  - Agent execution context
+  - RAG-augmented prompt context
+- id: AS011
+  name: Model Input
+  category: interaction_data
+  description: The specific serialized payload submitted to a model for one inference call, typically
+    derived from the broader runtime context.
+  examples:
+  - Prompt payload
+  - Message sequence
+  - Multimodal input bundle
+- id: AS012
+  name: Model Output
+  category: interaction_data
+  description: Content generated or predicted by a model before or after downstream processing.
+  examples:
+  - Text response
+  - Classification
+  - Image
+  - Audio
+  - Tool-call proposal
+- id: AS013
+  name: Tool Input
+  category: interaction_data
+  description: Structured arguments, parameters, content, or commands supplied to a tool or capability.
+  examples:
+  - Function arguments
+  - MCP tool arguments
+  - API request payload
+- id: AS014
+  name: Tool Result
+  category: interaction_data
+  description: Data, status, content, or results returned by a tool or capability after invocation.
+  examples:
+  - API response
+  - Database query result
+  - File contents
+  - Action status
+- id: AS015
+  name: Model Artifact
+  category: model_artifact
+  description: A trained, fine-tuned, distilled, quantized, or otherwise packaged AI model artifact after
+    it has been acquired, created, registered, or managed within the AI system lifecycle.
+  examples:
+  - Managed model weights
+  - Registered checkpoint
+  - Managed adapter
+  - Quantized model
+- id: AS016
+  name: Model Configuration
+  category: model_artifact
+  description: Configuration controlling model loading, inference behavior, generation parameters, routing,
+    or serving characteristics.
+  examples:
+  - Model configuration file
+  - Generation parameters
+  - Routing policy
+  - Serving configuration
+- id: AS017
+  name: Artifact Metadata / Provenance
+  category: development_supply_chain
+  description: Metadata describing the origin, ownership, lineage, version, license, integrity, evaluation
+    status, or dependency history of AI and software artifacts.
+  examples:
+  - Model card
+  - Provenance record
+  - Checksum or integrity metadata
+  - SBOM or dependency metadata
+  - License metadata
+  - Build provenance
+- id: AS018
+  name: Agent Definition
+  category: agent_application
+  description: Configuration defining an agent's role, goals, instructions, capabilities, memory behavior,
+    tools, and execution policy.
+  examples:
+  - Agent manifest
+  - Agent configuration
+  - Agent persona
+- id: AS019
+  name: Workflow / Orchestration Definition
+  category: agent_application
+  description: Declarative or procedural definition of multi-step AI or agent execution, routing, sequencing,
+    branching, retries, or approvals.
+  examples:
+  - Agent workflow
+  - Orchestration graph
+  - State machine
+  - Multi-agent plan
+- id: AS020
+  name: Tool / Capability Definition
+  category: agent_application
+  description: Canonical or registered machine-readable definition of an invocable or addressable AI capability,
+    including its name, purpose, parameters, schemas, resource metadata, and invocation or access metadata.
+  examples:
+  - Function schema
+  - MCP tool definition
+  - MCP resource definition
+  - Resource template
+  - Connector definition
+- id: AS021
+  name: Credential / Secret
+  category: identity_secret
+  description: Secret material used by applications, agents, tools, workloads, or integrations to authenticate
+    to protected systems.
+  examples:
+  - API key
+  - Password
+  - Client secret
+  - Private key
+- id: AS022
+  name: Access Token / Identity Assertion
+  category: identity_secret
+  description: Short-lived or delegated identity material used to represent an authenticated user, workload,
+    agent, or application.
+  examples:
+  - OAuth access token
+  - JWT
+  - SAML assertion
+  - Workload identity token
+- id: AS023
+  name: Authorization Policy
+  category: identity_secret
+  description: Rules, entitlements, roles, permissions, or policy definitions used to make authorization
+    decisions for AI actions or resources.
+  examples:
+  - RBAC policy
+  - ABAC policy
+  - Tool permission rule
+  - Agent action policy
+- id: AS024
+  name: Evaluation Dataset / Test Case
+  category: evaluation_governance
+  description: Test inputs, expected outcomes, scenarios, adversarial prompts, or benchmark data used
+    to evaluate AI behavior or quality.
+  examples:
+  - Golden dataset
+  - Red-team prompt set
+  - Regression test case
+  - Benchmark
+- id: AS025
+  name: Evaluation Result
+  category: evaluation_governance
+  description: Measurements, findings, scores, failures, or evidence produced by AI evaluation, testing,
+    or red-team activities.
+  examples:
+  - Evaluation score
+  - Safety finding
+  - Regression result
+  - Red-team finding
+- id: AS026
+  name: AI Inventory / Governance Record
+  category: evaluation_governance
+  description: Governance metadata describing an AI system, model, use case, ownership, risk classification,
+    approvals, or compliance status.
+  examples:
+  - AI system inventory record
+  - Use-case registration
+  - Risk assessment
+  - Approval record
+- id: AS027
+  name: Human Approval Decision
+  category: evaluation_governance
+  description: Recorded human decision authorizing, rejecting, modifying, or escalating a proposed AI
+    or agent action.
+  examples:
+  - Approval
+  - Rejection
+  - Escalation
+  - Modified action
+- id: AS028
+  name: AI Activity Log / Trace
+  category: observability_audit
+  description: Recorded execution, interaction, tool-use, model-call, policy, or trace information used
+    for observability, troubleshooting, audit, or forensics.
+  examples:
+  - Agent trace
+  - Model-call log
+  - Tool invocation log
+  - Correlation trace
+- id: AS029
+  name: Security / Policy Event
+  category: observability_audit
+  description: Event produced by authentication, authorization, guardrail, DLP, monitoring, or other security
+    controls.
+  examples:
+  - Authorization denial
+  - Guardrail violation
+  - DLP event
+  - Suspicious tool-use alert
+- id: AS030
+  name: Source Code
+  category: development_supply_chain
+  description: Application, agent, model integration, tool, pipeline, or infrastructure code used to build
+    and operate AI systems.
+  examples:
+  - Application code
+  - Agent code
+  - Tool implementation
+  - Infrastructure as code
+- id: AS031
+  name: Software Dependency
+  category: development_supply_chain
+  description: Third-party library, package, framework, runtime, container, plugin, or other software
+    dependency used by an AI system.
+  examples:
+  - Python package
+  - JavaScript package
+  - AI framework
+  - Container image
+- id: AS032
+  name: AI Dependency / Upstream Asset
+  category: development_supply_chain
+  description: Externally sourced AI-specific artifact at the point of upstream acquisition, before it
+    is accepted into the organization's managed AI development, registry, or deployment lifecycle.
+  examples:
+  - Externally sourced pretrained model
+  - External AI package
+  - External dataset
+  - Prompt or agent package
+- id: AS033
+  name: Build / Deployment Artifact
+  category: development_supply_chain
+  description: Packaged artifact produced by development or CI/CD processes for deployment or serving.
+  examples:
+  - Container image
+  - Deployment bundle
+  - Model package
+  - Serverless package

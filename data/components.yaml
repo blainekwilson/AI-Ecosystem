@@ -1,0 +1,429 @@
+components:
+  - id: U01
+    name: Human User
+    category: user
+    description: Human actor who directly initiates or interacts with an AI-enabled system.
+    examples:
+      - Employee
+      - Customer
+      - Developer
+      - Analyst
+
+  - id: U02
+    name: Automated / System Initiator
+    category: user
+    description: Non-human system, process, or event that initiates an AI interaction or workflow using workload or service identity.
+    examples:
+      - Webhook
+      - Scheduled job
+      - CI/CD pipeline
+      - Event trigger
+      - Enterprise application
+
+  - id: APP01
+    name: AI Application / Host
+    category: application
+    description: Backend or host application that composes AI capabilities such as models, agents, context, tools, memory, identity, and policy controls.
+    examples:
+      - Enterprise AI assistant backend
+      - Coding assistant service
+      - AI-enabled business application
+      - Agent host application
+
+  - id: APP02
+    name: Client / User Interface
+    category: application
+    description: User-facing or local interaction surface through which a human accesses an AI application.
+    examples:
+      - Web interface
+      - IDE extension
+      - Mobile application
+      - Desktop application
+      - CLI
+      - Chat interface
+
+  - id: A01
+    name: Agent
+    category: agent
+    description: Goal-directed AI component that reasons, selects actions, uses available capabilities, and iterates based on observations.
+    examples:
+      - Coding agent
+      - Research agent
+      - Security review agent
+      - Workflow agent
+
+  - id: A02
+    name: Agent Runtime / Orchestrator
+    category: agent
+    description: Runtime responsible for executing agent workflows and managing state, routing, retries, tool availability, approvals, and multi-step execution.
+    examples:
+      - Agent workflow engine
+      - Graph-based agent runtime
+      - Custom orchestration service
+
+  - id: A03
+    name: Multi-Agent Coordinator
+    category: agent
+    description: Coordinates delegation, communication, sequencing, and shared state among multiple agents.
+    examples:
+      - Supervisor agent
+      - Planner-worker coordinator
+      - Multi-agent workflow manager
+
+  - id: M01
+    name: Generative / Foundation Model
+    category: model
+    description: General-purpose generative or foundation model used for reasoning, understanding, and content generation.
+    examples:
+      - Large language model
+      - Multimodal foundation model
+      - Locally hosted foundation model
+      - Externally hosted foundation model
+
+  - id: M02
+    name: Embedding Model
+    category: model
+    description: Model that converts content into vector representations for semantic retrieval, clustering, ranking, or similarity operations.
+    examples:
+      - Text embedding model
+      - Multimodal embedding model
+
+  - id: M03
+    name: Specialized AI Model
+    category: model
+    description: Model optimized for a narrower modality, task, or domain that is architecturally distinct from a general-purpose foundation model.
+    examples:
+      - Speech recognition model
+      - Text-to-speech model
+      - Image generation model
+      - OCR model
+      - Classification model
+      - Domain-specific model
+
+  - id: M04
+    name: Model Gateway / Router
+    category: model
+    description: Central access layer that routes model requests and may enforce authentication, authorization, quotas, logging, filtering, provider selection, and policy.
+    examples:
+      - LLM proxy
+      - Model router
+      - AI gateway
+      - Multi-provider abstraction layer
+
+  - id: K01
+    name: Context Construction
+    category: knowledge
+    description: Assembles the information provided to a model, including instructions, user input, retrieved content, memory, tool definitions, conversation state, and runtime metadata.
+    examples:
+      - Prompt builder
+      - Context manager
+      - Context orchestration service
+
+  - id: K02
+    name: RAG / Retrieval Service
+    category: knowledge
+    description: Retrieves information relevant to the current task and supplies it for use in model context.
+    examples:
+      - Enterprise search
+      - Semantic retrieval
+      - Hybrid retrieval
+      - Retrieval-augmented generation pipeline
+
+  - id: K03
+    name: AI Memory
+    category: knowledge
+    description: Stores and retrieves short-term or long-term state from prior user, application, or agent interactions.
+    examples:
+      - Conversation memory
+      - User memory
+      - Episodic memory
+      - Long-term agent memory
+
+  - id: K04
+    name: Vector Store / Search Index
+    category: knowledge
+    description: Stores embeddings, indexed documents, metadata, or searchable content used by retrieval systems.
+    examples:
+      - Vector database
+      - Semantic search index
+      - Hybrid search index
+
+  - id: K05
+    name: Knowledge Graph / Structured Knowledge
+    category: knowledge
+    description: Structured relationships, metadata, ontologies, or domain knowledge used to ground AI reasoning and retrieval.
+    examples:
+      - Knowledge graph
+      - Metadata catalog
+      - Ontology
+      - Entity relationship store
+
+  - id: K06
+    name: Knowledge Ingestion / Indexing Pipeline
+    category: knowledge
+    description: Processes source content for retrieval by extracting, transforming, chunking, embedding, enriching, and indexing data into knowledge stores.
+    examples:
+      - Document ingestion pipeline
+      - Embedding pipeline
+      - Search crawler
+      - Indexing job
+      - Knowledge synchronization process
+
+  - id: P02
+    name: MCP Client
+    category: integration
+    description: Running client implementation of the Model Context Protocol used by an AI application, host, or agent runtime to access capabilities exposed through MCP.
+    examples:
+      - IDE MCP client
+      - Agent runtime MCP client
+      - AI application MCP client
+
+  - id: P03
+    name: MCP Server
+    category: integration
+    description: Running server implementation that exposes tools, resources, prompts, or other capabilities to MCP clients.
+    examples:
+      - Database MCP server
+      - Source control MCP server
+      - Enterprise MCP server
+      - SaaS MCP server
+
+  - id: P04
+    name: Integration Gateway / API Management
+    category: integration
+    description: Managed integration layer that exposes, brokers, secures, routes, transforms, or governs non-MCP API and service interactions.
+    examples:
+      - API gateway
+      - API management platform
+      - Integration facade
+      - Service gateway
+
+  - id: T01
+    name: Tool / Capability
+    category: tool
+    description: Executable capability invoked by an AI application or agent to retrieve information, perform computation, or take an action.
+    examples:
+      - Search tool
+      - Database query capability
+      - Email action
+      - Browser automation
+      - SaaS operation
+      - Internal business function
+
+  - id: T02
+    name: Code Execution Sandbox
+    category: tool
+    description: Isolated environment used to execute generated, user-supplied, or agent-selected code while constraining access to the surrounding environment.
+    examples:
+      - Container sandbox
+      - Ephemeral virtual machine
+      - Notebook runtime
+      - Restricted code interpreter
+
+  - id: D01
+    name: Enterprise-Managed Data Sources
+    category: data
+    description: Data sources whose access, configuration, and governance are primarily managed by the enterprise, regardless of whether they are hosted on-premises or in an enterprise cloud account.
+    examples:
+      - Enterprise databases
+      - File systems
+      - Git repositories
+      - Enterprise-managed object storage
+      - Enterprise-managed data lakes
+      - Internally operated document repositories
+
+  - id: D02
+    name: Vendor-Hosted Enterprise Data Sources
+    category: data
+    description: Vendor-operated SaaS or cloud data services that contain enterprise-controlled information and are accessed under the enterprise tenant or account.
+    examples:
+      - Microsoft 365
+      - Salesforce
+      - Workday
+      - ServiceNow
+      - Confluence Cloud
+      - Vendor-hosted collaboration platforms
+
+  - id: D03
+    name: External / Public Data Sources
+    category: data
+    description: Public, partner, or third-party information sources outside direct enterprise governance.
+    examples:
+      - Public websites
+      - Public APIs
+      - News sources
+      - Partner datasets
+      - External knowledge bases
+
+  - id: I01
+    name: Identity Provider
+    category: identity
+    description: Authenticates human and workload identities and issues identity assertions, sessions, or tokens.
+    examples:
+      - Entra ID
+      - Okta
+      - OIDC provider
+      - Enterprise identity service
+
+  - id: I02
+    name: Authorization / Policy Decision
+    category: identity
+    description: Determines whether an authenticated identity, delegated agent, workload, or service may access a resource or perform an action.
+    examples:
+      - RBAC
+      - ABAC
+      - Policy decision point
+      - Entitlement service
+      - Approval policy engine
+
+  - id: I03
+    name: Secrets / Credential Service
+    category: identity
+    description: Stores, issues, rotates, or brokers credentials and access tokens used by applications, agents, tools, connectors, and services.
+    examples:
+      - Secrets manager
+      - Credential vault
+      - Managed identity
+      - Token broker
+
+  - id: C01
+    name: Content & Behavior Guardrails
+    category: control
+    description: Applies safety and behavior controls to prompts, retrieved content, model outputs, agent actions, and tool use.
+    examples:
+      - Prompt injection detection
+      - Output filtering
+      - DLP
+      - Content safety filtering
+      - Action restrictions
+
+  - id: C02
+    name: Observability / Audit
+    category: control
+    description: Captures telemetry and audit evidence for AI interactions, model calls, agent decisions, context sources, tool activity, identity, performance, and cost.
+    examples:
+      - AI tracing
+      - Centralized logging
+      - Audit trails
+      - Usage analytics
+      - Model and agent telemetry
+
+  - id: C03
+    name: Evaluation / Testing
+    category: control
+    description: Measures AI system quality, safety, security, correctness, robustness, and regression before and after deployment.
+    examples:
+      - Evaluation suites
+      - Red teaming
+      - Jailbreak testing
+      - Regression testing
+      - Adversarial testing
+
+  - id: C04
+    name: Governance / Risk / Compliance
+    category: control
+    description: Manages AI inventory, ownership, classification, lifecycle, vendor risk, retention, regulatory obligations, approvals, and risk decisions.
+    examples:
+      - AI inventory
+      - Risk assessment
+      - Model approval
+      - Data classification
+      - Regulatory compliance
+
+  - id: C05
+    name: Human-in-the-Loop Approval
+    category: control
+    description: Explicit human decision point that must approve, reject, modify, or escalate a proposed AI or agent action before execution.
+    examples:
+      - Confirm before send
+      - Privileged action approval
+      - Dual-control review
+      - Financial transaction approval
+      - Break-glass review
+
+  - id: X01
+    name: External AI Provider
+    category: external
+    description: Third-party provider that hosts AI models or exposes AI inference APIs consumed by the enterprise.
+    examples:
+      - OpenAI
+      - Azure OpenAI
+      - Anthropic
+      - Google
+      - Other hosted model providers
+
+  - id: X02
+    name: External Service
+    category: external
+    description: Third-party SaaS, website, API, or service accessed by AI applications, tools, or agents.
+    examples:
+      - SaaS API
+      - Payment API
+      - Public website
+      - Shipping service
+      - Mapping service
+
+  - id: X03
+    name: External AI Application / Platform
+    category: external
+    description: Third-party AI application or platform that composes or brokers AI capabilities and may itself depend on underlying models, agents, tools, or providers.
+    examples:
+      - Coding assistant platform
+      - Enterprise copilot platform
+      - AI marketplace
+      - AI application platform
+
+  - id: L01
+    name: Training / Fine-Tuning Pipeline
+    category: lifecycle
+    description: Pipeline that creates or adapts model behavior using training, fine-tuning, alignment, or domain-specific data.
+    examples:
+      - Pretraining pipeline
+      - Supervised fine-tuning
+      - Reinforcement learning pipeline
+      - Alignment pipeline
+
+  - id: L02
+    name: AI Asset / Model Registry
+    category: lifecycle
+    description: Inventory and repository for approved AI assets such as models, datasets, prompts, agent definitions, tool definitions, versions, dependencies, and provenance.
+    examples:
+      - Model registry
+      - AI asset inventory
+      - Prompt registry
+      - Dataset registry
+      - AI bill of materials
+
+  - id: L03
+    name: Deployment / Serving Platform
+    category: lifecycle
+    description: Runtime infrastructure used to deploy, host, scale, and serve models and AI services.
+    examples:
+      - Kubernetes
+      - Inference server
+      - Managed model endpoint
+      - GPU serving platform
+      - Serverless AI endpoint
+
+  - id: L04
+    name: AI Development Toolchain
+    category: lifecycle
+    description: Development environments, frameworks, dependencies, build systems, and CI/CD processes used to create AI applications, agents, tools, prompts, and models.
+    examples:
+      - AI SDKs
+      - Agent frameworks
+      - Notebooks
+      - IDEs
+      - CI/CD
+      - Package repositories
+
+  - id: L05
+    name: Upstream Model / Dependency Source
+    category: lifecycle
+    description: External source from which pretrained models, libraries, containers, datasets, or other AI development dependencies are obtained.
+    examples:
+      - Model hubs
+      - Package repositories
+      - Container registries
+      - Public datasets
+      - Open-source model repositories

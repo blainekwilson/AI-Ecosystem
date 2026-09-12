@@ -1,0 +1,48 @@
+views:
+  - id: "01"
+    name: AI Ecosystem Overview
+    output: diagrams/01-ecosystem-overview/overview.mmd
+    components: [U01, APP01, A01, A02, M01, M04, K01, K02, K03, P01, P02, P03, T01, D01, D02, D03, X01, X02]
+    flows: [F001, F002, F003, F004, F005, F006, F007, F008, F009, F010, F011, F012, F013, F014, F015, F016, F017, F018, F019, F020]
+
+  - id: "02"
+    name: AI Application Architecture
+    output: diagrams/02-ai-application/ai-application.mmd
+    components: [U01, APP01, A01, A02, M01, M04, K01, K02, K03, P01, T01, I01, I02, C01, C02]
+    flows: [F001, F002, F003, F004, F005, F006, F007, F011, F012, F020, F021, F022, F024, F025]
+
+  - id: "03"
+    name: Agentic AI Architecture
+    output: diagrams/03-agentic-ai/agentic-ai.mmd
+    components: [APP01, A01, A02, A03, M01, K01, K03, P01, P02, P03, T01, I02, C01, C02]
+    flows: [F002, F003, F004, F005, F007, F011, F012, F013, F014, F015, F022, F024, F025]
+
+  - id: "04"
+    name: AI Integration and MCP
+    output: diagrams/04-integration-mcp/integration-mcp.mmd
+    components: [A01, P01, P02, P03, P04, T01, T02, D01, D02, X02, I03]
+    flows: [F011, F012, F013, F014, F015, F016, F017, F018, F023]
+
+  - id: "05"
+    name: AI Data and Knowledge
+    output: diagrams/05-data-knowledge/data-knowledge.mmd
+    components: [A01, M02, K01, K02, K03, K04, K05, D01, D02, D03]
+    flows: [F005, F006, F007, F008, F009, F010]
+
+  - id: "06"
+    name: AI Model Architecture
+    output: diagrams/06-models/models.mmd
+    components: [A01, M01, M02, M03, M04, X01, L02, L03]
+    flows: [F004, F019, F020, F029, F030]
+
+  - id: "07"
+    name: AI Identity and Access
+    output: diagrams/07-identity-access/identity-access.mmd
+    components: [U01, APP01, A01, A02, T01, P03, I01, I02, I03, C01, C02]
+    flows: [F001, F002, F003, F021, F022, F023, F024, F025]
+
+  - id: "08"
+    name: AI Development and Supply Chain
+    output: diagrams/08-development-supply-chain/development-supply-chain.mmd
+    components: [L01, L02, L03, L04, M01, C03, C04]
+    flows: [F028, F029, F030, F031]

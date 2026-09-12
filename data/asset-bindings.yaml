@@ -1,0 +1,650 @@
+model_notes:
+- This file defines canonical asset-participation patterns for components and flows; it does not assert that every architecture
+  instantiates every binding.
+- Flow bindings describe assets carried, returned, emitted, or otherwise participating in an interaction.
+- Component bindings are limited to transient processing roles such as consumes and produces. Persistent custody, configuration,
+  hosting, definition, registration, and governance belong in relationships-v1-frozen.yaml.
+- A single flow may have multiple applicable assets because the canonical model represents reusable patterns rather than
+  one concrete implementation.
+- Model Input and Model Output may be bound to multiple successive inference hops intentionally; this represents propagation
+  of the same logical payload across distinct architectural edges so later trust-boundary analysis can identify where
+  sensitive assets cross boundaries.
+binding_roles:
+- name: request
+  applies_to:
+  - flow
+  description: The asset is carried from the flow source toward the flow destination as part of the request or initiating
+    message.
+- name: response
+  applies_to:
+  - flow
+  description: The asset is carried from the flow destination back toward the flow source as part of the response.
+- name: exchange
+  applies_to:
+  - flow
+  description: The asset may move in either direction or be updated through a genuinely bidirectional or mixed interaction
+    where request/response direction cannot be represented accurately. Use request or response whenever the specific
+    asset's direction is known.
+- name: emitted
+  applies_to:
+  - flow
+  description: The asset is emitted or published by the flow source as the primary record or artifact of a notification/write
+    interaction.
+- name: consumes
+  applies_to:
+  - component
+  description: The component transiently reads, interprets, or processes the asset as part of its function.
+- name: produces
+  applies_to:
+  - component
+  description: The component creates or assembles the asset as part of its function.
+bindings:
+- id: AB001
+  target_type: component
+  target: K01
+  asset: AS001
+  role: consumes
+  description: Context construction may consume system instructions when assembling runtime context.
+- id: AB002
+  target_type: component
+  target: K01
+  asset: AS002
+  role: consumes
+  description: Context construction may consume user or system-supplied input when assembling runtime context.
+- id: AB003
+  target_type: component
+  target: K01
+  asset: AS003
+  role: consumes
+  description: Context construction may consume prompt templates populated with runtime values and context.
+- id: AB004
+  target_type: component
+  target: K01
+  asset: AS004
+  role: consumes
+  description: Context construction may consume runtime-serialized tool or capability instructions.
+- id: AB005
+  target_type: component
+  target: K01
+  asset: AS006
+  role: consumes
+  description: Context construction may consume retrieved content returned by retrieval services.
+- id: AB006
+  target_type: component
+  target: K01
+  asset: AS009
+  role: consumes
+  description: Context construction may consume persistent or semi-persistent AI memory when assembling runtime context.
+- id: AB007
+  target_type: component
+  target: K01
+  asset: AS010
+  role: produces
+  description: Context construction produces the assembled runtime context used by downstream AI processing.
+- id: AB008
+  target_type: component
+  target: K06
+  asset: AS005
+  role: consumes
+  description: Knowledge ingestion processes source datasets or source corpora for downstream indexing and knowledge
+    construction.
+- id: AB009
+  target_type: component
+  target: K06
+  asset: AS007
+  role: produces
+  description: Knowledge ingestion produces embedded or indexed content for retrieval systems.
+- id: AB010
+  target_type: component
+  target: K06
+  asset: AS008
+  role: produces
+  description: Knowledge ingestion may produce structured knowledge graph content.
+- id: AB011
+  target_type: flow
+  target: F001
+  asset: AS002
+  role: request
+  description: Human interaction may carry user prompt or user-supplied content into the AI client.
+- id: AB012
+  target_type: flow
+  target: F002
+  asset: AS002
+  role: request
+  description: The client may submit user prompt or user-supplied content to the AI application or host.
+- id: AB013
+  target_type: flow
+  target: F003
+  asset: AS002
+  role: request
+  description: Automated initiation may carry a system-generated task instruction or other automated input.
+- id: AB014
+  target_type: flow
+  target: F008
+  asset: AS011
+  role: request
+  description: The inference interaction carries the serialized model input.
+- id: AB015
+  target_type: flow
+  target: F008
+  asset: AS012
+  role: response
+  description: The inference interaction returns model output.
+- id: AB016
+  target_type: flow
+  target: F009
+  asset: AS011
+  role: request
+  description: The inference interaction carries the serialized model input.
+- id: AB017
+  target_type: flow
+  target: F009
+  asset: AS012
+  role: response
+  description: The inference interaction returns model output.
+- id: AB018
+  target_type: flow
+  target: F010
+  asset: AS011
+  role: request
+  description: The inference interaction carries the serialized model input.
+- id: AB019
+  target_type: flow
+  target: F010
+  asset: AS012
+  role: response
+  description: The inference interaction returns model output.
+- id: AB020
+  target_type: flow
+  target: F011
+  asset: AS011
+  role: request
+  description: The inference interaction carries the serialized model input.
+- id: AB021
+  target_type: flow
+  target: F011
+  asset: AS012
+  role: response
+  description: The inference interaction returns model output.
+- id: AB022
+  target_type: flow
+  target: F012
+  asset: AS002
+  role: request
+  description: A context-build request may include user or system-supplied input relevant to the current task.
+- id: AB023
+  target_type: flow
+  target: F012
+  asset: AS010
+  role: response
+  description: Context construction returns assembled runtime context to the requesting component.
+- id: AB024
+  target_type: flow
+  target: F013
+  asset: AS002
+  role: request
+  description: A context-build request may include user or system-supplied input relevant to the current task.
+- id: AB025
+  target_type: flow
+  target: F013
+  asset: AS010
+  role: response
+  description: Context construction returns assembled runtime context to the requesting component.
+- id: AB026
+  target_type: flow
+  target: F014
+  asset: AS006
+  role: response
+  description: Knowledge retrieval returns retrieved content for context construction.
+- id: AB027
+  target_type: flow
+  target: F015
+  asset: AS009
+  role: exchange
+  description: Memory access may read existing persistent state and may update memory as part of the same logical interaction.
+- id: AB028
+  target_type: flow
+  target: F017
+  asset: AS006
+  role: response
+  description: Vector or index search returns content that becomes retrieved content.
+- id: AB029
+  target_type: flow
+  target: F018
+  asset: AS006
+  role: response
+  description: Knowledge graph query returns structured results that become retrieved content.
+- id: AB030
+  target_type: flow
+  target: F019
+  asset: AS006
+  role: response
+  description: Data retrieval returns source information that may be represented as retrieved content.
+- id: AB031
+  target_type: flow
+  target: F020
+  asset: AS006
+  role: response
+  description: Data retrieval returns source information that may be represented as retrieved content.
+- id: AB032
+  target_type: flow
+  target: F021
+  asset: AS006
+  role: response
+  description: Data retrieval returns source information that may be represented as retrieved content.
+- id: AB033
+  target_type: flow
+  target: F022
+  asset: AS005
+  role: response
+  description: Source ingestion reads source dataset or corpus content from the target data source.
+- id: AB034
+  target_type: flow
+  target: F023
+  asset: AS005
+  role: response
+  description: Source ingestion reads source dataset or corpus content from the target data source.
+- id: AB035
+  target_type: flow
+  target: F024
+  asset: AS005
+  role: response
+  description: Source ingestion reads source dataset or corpus content from the target data source.
+- id: AB036
+  target_type: flow
+  target: F025
+  asset: AS011
+  role: request
+  description: Document embedding sends serialized content to the embedding model as model input.
+- id: AB037
+  target_type: flow
+  target: F025
+  asset: AS012
+  role: response
+  description: Document embedding receives the embedding model's output for downstream indexing.
+- id: AB038
+  target_type: flow
+  target: F026
+  asset: AS007
+  role: request
+  description: Index write carries embedded or indexed content to the vector store or search index.
+- id: AB039
+  target_type: flow
+  target: F027
+  asset: AS008
+  role: request
+  description: Knowledge graph write carries structured entities, relationships, attributes, or provenance to the graph
+    store.
+- id: AB040
+  target_type: flow
+  target: F028
+  asset: AS013
+  role: request
+  description: The interaction may carry structured tool, capability, execution, or integration input.
+- id: AB041
+  target_type: flow
+  target: F028
+  asset: AS014
+  role: response
+  description: The interaction may return a tool, capability, execution, or integration result.
+- id: AB042
+  target_type: flow
+  target: F029
+  asset: AS013
+  role: request
+  description: The interaction may carry structured tool, capability, execution, or integration input.
+- id: AB043
+  target_type: flow
+  target: F029
+  asset: AS014
+  role: response
+  description: The interaction may return a tool, capability, execution, or integration result.
+- id: AB044
+  target_type: flow
+  target: F030
+  asset: AS013
+  role: request
+  description: The interaction may carry structured tool, capability, execution, or integration input.
+- id: AB045
+  target_type: flow
+  target: F030
+  asset: AS014
+  role: response
+  description: The interaction may return a tool, capability, execution, or integration result.
+- id: AB046
+  target_type: flow
+  target: F032
+  asset: AS013
+  role: request
+  description: The interaction may carry structured tool, capability, execution, or integration input.
+- id: AB047
+  target_type: flow
+  target: F032
+  asset: AS014
+  role: response
+  description: The interaction may return a tool, capability, execution, or integration result.
+- id: AB048
+  target_type: flow
+  target: F034
+  asset: AS013
+  role: request
+  description: The interaction may carry structured tool, capability, execution, or integration input.
+- id: AB049
+  target_type: flow
+  target: F034
+  asset: AS014
+  role: response
+  description: The interaction may return a tool, capability, execution, or integration result.
+- id: AB050
+  target_type: flow
+  target: F035
+  asset: AS013
+  role: request
+  description: The interaction may carry structured tool, capability, execution, or integration input.
+- id: AB051
+  target_type: flow
+  target: F035
+  asset: AS014
+  role: response
+  description: The interaction may return a tool, capability, execution, or integration result.
+- id: AB052
+  target_type: flow
+  target: F036
+  asset: AS013
+  role: request
+  description: The interaction may carry structured tool, capability, execution, or integration input.
+- id: AB053
+  target_type: flow
+  target: F036
+  asset: AS014
+  role: response
+  description: The interaction may return a tool, capability, execution, or integration result.
+- id: AB054
+  target_type: flow
+  target: F037
+  asset: AS013
+  role: request
+  description: The interaction may carry structured tool, capability, execution, or integration input.
+- id: AB055
+  target_type: flow
+  target: F037
+  asset: AS014
+  role: response
+  description: The interaction may return a tool, capability, execution, or integration result.
+- id: AB056
+  target_type: flow
+  target: F038
+  asset: AS013
+  role: request
+  description: The interaction may carry structured tool, capability, execution, or integration input.
+- id: AB057
+  target_type: flow
+  target: F038
+  asset: AS014
+  role: response
+  description: The interaction may return a tool, capability, execution, or integration result.
+- id: AB058
+  target_type: flow
+  target: F039
+  asset: AS013
+  role: request
+  description: The interaction may carry structured tool, capability, execution, or integration input.
+- id: AB059
+  target_type: flow
+  target: F039
+  asset: AS014
+  role: response
+  description: The interaction may return a tool, capability, execution, or integration result.
+- id: AB060
+  target_type: flow
+  target: F031
+  asset: AS020
+  role: response
+  description: MCP capability discovery may return canonical or derived tool/capability definitions and metadata from
+    the server toward the client.
+- id: AB061
+  target_type: flow
+  target: F031
+  asset: AS013
+  role: request
+  description: MCP invocation may carry structured tool or capability input from the client toward the server.
+- id: AB062
+  target_type: flow
+  target: F031
+  asset: AS014
+  role: response
+  description: MCP invocation may return a tool or capability result from the server toward the client.
+- id: AB063
+  target_type: flow
+  target: F033
+  asset: AS020
+  role: response
+  description: External platform MCP access may receive capability definitions or metadata exposed by the MCP server.
+- id: AB064
+  target_type: flow
+  target: F033
+  asset: AS013
+  role: request
+  description: External platform MCP access may submit structured capability input.
+- id: AB065
+  target_type: flow
+  target: F033
+  asset: AS014
+  role: response
+  description: External platform MCP access may receive capability results.
+- id: AB066
+  target_type: flow
+  target: F040
+  asset: AS021
+  role: request
+  description: Authentication may carry secret credential material when that authentication method requires it.
+- id: AB067
+  target_type: flow
+  target: F040
+  asset: AS022
+  role: response
+  description: Successful authentication may return or establish an access token or identity assertion.
+- id: AB068
+  target_type: flow
+  target: F041
+  asset: AS022
+  role: request
+  description: Authorization evaluation may include an access token or identity assertion representing the acting identity.
+- id: AB069
+  target_type: flow
+  target: F042
+  asset: AS021
+  role: response
+  description: Credential retrieval may return scoped credential or secret material.
+- id: AB070
+  target_type: flow
+  target: F042
+  asset: AS022
+  role: response
+  description: Credential retrieval may return a short-lived or delegated access token.
+- id: AB071
+  target_type: flow
+  target: F043
+  asset: AS002
+  role: request
+  description: Guardrail evaluation may inspect user prompt or user-supplied content.
+- id: AB072
+  target_type: flow
+  target: F043
+  asset: AS012
+  role: request
+  description: Guardrail evaluation may inspect model output.
+- id: AB073
+  target_type: flow
+  target: F043
+  asset: AS013
+  role: request
+  description: Guardrail evaluation may inspect a proposed tool or capability action.
+- id: AB074
+  target_type: flow
+  target: F044
+  asset: AS013
+  role: request
+  description: Human approval may receive the structured input or proposed action requiring approval.
+- id: AB075
+  target_type: flow
+  target: F044
+  asset: AS027
+  role: response
+  description: Human approval returns a recorded approval, rejection, modification, or escalation decision.
+- id: AB076
+  target_type: flow
+  target: F045
+  asset: AS028
+  role: emitted
+  description: Telemetry flow emits AI activity log or trace data for observability and audit.
+- id: AB077
+  target_type: flow
+  target: F046
+  asset: AS024
+  role: request
+  description: Application evaluation supplies evaluation datasets, test cases, scenarios, or adversarial inputs.
+- id: AB078
+  target_type: flow
+  target: F046
+  asset: AS025
+  role: response
+  description: Application evaluation produces evaluation results, findings, or scores.
+- id: AB079
+  target_type: flow
+  target: F047
+  asset: AS026
+  role: emitted
+  description: Governance inventory publishes or updates the AI inventory or governance record.
+- id: AB080
+  target_type: flow
+  target: F048
+  asset: AS015
+  role: emitted
+  description: Training or fine-tuning may publish a managed model artifact as an output.
+- id: AB081
+  target_type: flow
+  target: F048
+  asset: AS017
+  role: emitted
+  description: Training or fine-tuning may publish provenance or metadata associated with its output.
+- id: AB082
+  target_type: flow
+  target: F049
+  asset: AS015
+  role: request
+  description: Approved asset deployment may carry a managed model artifact to the serving platform.
+- id: AB083
+  target_type: flow
+  target: F049
+  asset: AS016
+  role: request
+  description: Approved asset deployment may carry model configuration required for serving.
+- id: AB084
+  target_type: flow
+  target: F049
+  asset: AS033
+  role: request
+  description: Approved asset deployment may carry a packaged build or deployment artifact.
+- id: AB085
+  target_type: flow
+  target: F050
+  asset: AS015
+  role: emitted
+  description: Development artifact registration may publish a model artifact.
+- id: AB086
+  target_type: flow
+  target: F050
+  asset: AS003
+  role: emitted
+  description: Development artifact registration may publish a prompt template.
+- id: AB087
+  target_type: flow
+  target: F050
+  asset: AS005
+  role: emitted
+  description: Development artifact registration may publish or register a dataset.
+- id: AB088
+  target_type: flow
+  target: F050
+  asset: AS018
+  role: emitted
+  description: Development artifact registration may publish an agent definition.
+- id: AB089
+  target_type: flow
+  target: F050
+  asset: AS020
+  role: emitted
+  description: Development artifact registration may publish a tool or capability definition.
+- id: AB090
+  target_type: flow
+  target: F050
+  asset: AS017
+  role: emitted
+  description: Development artifact registration may publish artifact metadata or provenance.
+- id: AB091
+  target_type: flow
+  target: F050
+  asset: AS033
+  role: emitted
+  description: Development artifact registration may publish a build or deployment artifact.
+- id: AB092
+  target_type: flow
+  target: F051
+  asset: AS031
+  role: response
+  description: Dependency acquisition may retrieve a third-party software dependency.
+- id: AB093
+  target_type: flow
+  target: F051
+  asset: AS032
+  role: response
+  description: Dependency acquisition may retrieve an externally sourced AI-specific upstream asset.
+- id: AB094
+  target_type: component
+  target: K01
+  asset: AS014
+  role: consumes
+  description: Context construction may consume a prior tool result when assembling context for a subsequent reasoning
+    or interaction step.
+- id: AB095
+  target_type: component
+  target: K01
+  asset: AS012
+  role: consumes
+  description: Context construction may consume prior model output, such as earlier assistant turns, when assembling
+    context for a subsequent interaction.
+- id: AB096
+  target_type: flow
+  target: F041
+  asset: AS029
+  role: response
+  description: Authorization evaluation may produce a security or policy event when access or an action is denied or
+    otherwise policy-significant.
+- id: AB097
+  target_type: flow
+  target: F043
+  asset: AS029
+  role: response
+  description: Guardrail evaluation may produce a security or policy event when a violation or policy-significant condition
+    is detected.
+- id: AB098
+  target_type: flow
+  target: F043
+  asset: AS010
+  role: request
+  description: Guardrail evaluation may inspect assembled runtime context when policies apply to the combined instructions,
+    retrieved content, memory, and other contextual material.
+- id: AB099
+  target_type: flow
+  target: F043
+  asset: AS011
+  role: request
+  description: Guardrail evaluation may inspect the serialized model input before inference or other downstream processing.
+- id: AB100
+  target_type: flow
+  target: F031
+  asset: AS004
+  role: response
+  description: MCP capability discovery may return runtime-serialized tool or capability instructions used by the client
+    during AI execution.

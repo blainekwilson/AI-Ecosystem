@@ -1,0 +1,91 @@
+flowchart TB
+
+%% AI Ecosystem — AI Application & Agent Runtime
+%% v5: flattened logical topology with no grouping containers or category-label nodes.
+%% Every visible arrow terminates on a canonical component node.
+
+classDef user fill:#f7f7f7,stroke:#555,color:#111,stroke-width:1px;
+classDef app fill:#eef4ff,stroke:#4a6fa5,color:#111,stroke-width:1px;
+classDef agent fill:#f3efff,stroke:#6d5cae,color:#111,stroke-width:1px;
+classDef knowledge fill:#eef8f1,stroke:#4d7d5b,color:#111,stroke-width:1px;
+classDef model fill:#fff4e8,stroke:#a16a2f,color:#111,stroke-width:1px;
+classDef tool fill:#fff9e8,stroke:#9a7a1f,color:#111,stroke-width:1px;
+classDef security fill:#fdf0f3,stroke:#9b5262,color:#111,stroke-width:1px;
+
+%% Users & initiators
+U01["U01<br/><b>Human User</b>"]
+U02["U02<br/><b>Automated / System Initiator</b>"]
+
+%% AI application
+APP02["APP02<br/><b>Client / User Interface</b>"]
+APP01["APP01<br/><b>AI Application / Host</b>"]
+
+%% Agent runtime
+A02["A02<br/><b>Agent Runtime / Orchestrator</b>"]
+A03["A03<br/><b>Multi-Agent Coordinator</b>"]
+A01["A01<br/><b>Agent</b>"]
+
+%% Context & knowledge
+K01["K01<br/><b>Context Construction</b>"]
+K02["K02<br/><b>RAG / Retrieval Service</b>"]
+K03["K03<br/><b>AI Memory</b>"]
+
+%% Models
+M04["M04<br/><b>Model Gateway / Router</b>"]
+M01["M01<br/><b>Generative / Foundation Model</b>"]
+
+%% Tools & execution
+T01["T01<br/><b>Tool / Capability</b>"]
+P02["P02<br/><b>MCP Client</b>"]
+T02["T02<br/><b>Code Execution Sandbox</b>"]
+
+%% Identity & controls
+I01["I01<br/><b>Identity Provider</b>"]
+I02["I02<br/><b>Authorization / Policy Decision</b>"]
+C01["C01<br/><b>Content & Behavior Guardrails</b>"]
+C05["C05<br/><b>Human-in-the-Loop Approval</b>"]
+C02["C02<br/><b>Observability / Audit</b>"]
+
+%% Primary application path
+U01 --> APP02
+U02 --> APP01
+APP02 --> APP01
+APP01 --> A02
+A02 --> A01
+
+%% Multi-agent path
+A02 -. coordination .-> A03
+A03 -. delegation .-> A01
+
+%% Context and knowledge
+A01 --> K01
+APP01 -. context .-> K01
+K01 --> K02
+K01 --> K03
+
+%% Models
+A01 --> M04
+M04 --> M01
+A01 --> M01
+
+%% Tools and execution
+A01 --> T01
+A01 --> P02
+A01 --> T02
+
+%% Cross-cutting security/control interactions
+APP01 -. authentication .-> I01
+A02 -. authorization .-> I02
+A02 -. guardrails .-> C01
+A02 -. approval .-> C05
+A02 -. telemetry .-> C02
+
+class U01,U02 user;
+class APP01,APP02 app;
+class A01,A02,A03 agent;
+class K01,K02,K03 knowledge;
+class M01,M04 model;
+class T01,T02,P02 tool;
+class I01,I02,C01,C02,C05 security;
+
+linkStyle default stroke-width:1.2px;

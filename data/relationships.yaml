@@ -1,0 +1,195 @@
+model_notes:
+- This file defines valid canonical non-flow architectural relationship patterns, not mandatory universal relationships.
+- A specific architecture instantiates only the subset of relationships that applies to that system.
+- Runtime interactions belong in flows.yaml; transient asset participation in interactions belongs in the future
+  asset-binding model.
+relationship_types:
+- name: defined_by
+  inverse: defines
+  description: The source component's identity, capabilities, or logical behavior are materially described by the
+    destination asset.
+- name: configured_by
+  inverse: configures
+  description: The source component's standing behavior or operating parameters are influenced by the destination
+    configuration asset. Dynamically assembled runtime content belongs in asset bindings rather than this relationship.
+- name: instantiated_from
+  inverse: instantiates
+  description: The source runtime component is created, loaded, or realized from the destination artifact.
+- name: hosted_on
+  inverse: hosts
+  description: The source runtime component executes or is served on the destination platform or runtime environment.
+- name: stored_in
+  inverse: stores
+  description: The source asset is persistently or durably held, retained, indexed, or kept in the custody of the
+    destination component. Use registered_in when the destination catalogs or versions the asset without implying
+    custody of its raw content.
+- name: managed_by
+  inverse: manages
+  description: The source asset or component is subject to administrative, governance, lifecycle, or decision authority
+    exercised by the destination component. This does not by itself imply storage, registration, or runtime interaction.
+- name: exposed_by
+  inverse: exposes
+  description: The source capability component is advertised or made available through the destination integration
+    component without implying that an invocation is currently occurring. This relationship is protocol-neutral.
+- name: registered_in
+  inverse: registers
+  description: The source asset is cataloged, versioned, inventoried, or tracked by the destination component without
+    necessarily implying that the destination holds the asset's raw content.
+relationships:
+- id: R001
+  source: A01
+  relationship: defined_by
+  destination: AS018
+  description: An agent's canonical role, goals, capabilities, and behavioral configuration may be represented by
+    an Agent Definition asset.
+- id: R002
+  source: A02
+  relationship: configured_by
+  destination: AS019
+  description: An agent runtime or orchestrator may be configured by a workflow or orchestration definition.
+- id: R003
+  source: T01
+  relationship: defined_by
+  destination: AS020
+  description: A tool or capability may be described by a canonical machine-readable Tool / Capability Definition.
+- id: R004
+  source: M01
+  relationship: configured_by
+  destination: AS016
+  description: A generative or foundation model may use model configuration that governs loading, inference, generation,
+    routing, or serving behavior.
+- id: R005
+  source: M02
+  relationship: configured_by
+  destination: AS016
+  description: An embedding model may use model configuration that governs loading, inference, or serving behavior.
+- id: R006
+  source: M03
+  relationship: configured_by
+  destination: AS016
+  description: A specialized AI model may use model configuration that governs loading, inference, or serving behavior.
+- id: R007
+  source: M01
+  relationship: instantiated_from
+  destination: AS015
+  description: A running generative or foundation model may be instantiated from a managed model artifact.
+- id: R008
+  source: M02
+  relationship: instantiated_from
+  destination: AS015
+  description: A running embedding model may be instantiated from a managed model artifact.
+- id: R009
+  source: M03
+  relationship: instantiated_from
+  destination: AS015
+  description: A running specialized AI model may be instantiated from a managed model artifact.
+- id: R010
+  source: M01
+  relationship: hosted_on
+  destination: L03
+  description: A generative or foundation model may execute or be served on an AI deployment or serving platform.
+- id: R011
+  source: M02
+  relationship: hosted_on
+  destination: L03
+  description: An embedding model may execute or be served on an AI deployment or serving platform.
+- id: R012
+  source: M03
+  relationship: hosted_on
+  destination: L03
+  description: A specialized AI model may execute or be served on an AI deployment or serving platform.
+- id: R013
+  source: AS015
+  relationship: registered_in
+  destination: L02
+  description: Managed model artifacts may be stored and versioned in an AI asset or model registry.
+- id: R014
+  source: AS017
+  relationship: registered_in
+  destination: L02
+  description: Artifact provenance and integrity metadata may be retained with managed AI assets in an asset or
+    model registry.
+- id: R015
+  source: AS018
+  relationship: registered_in
+  destination: L02
+  description: Agent definitions may be registered and versioned as managed AI assets.
+- id: R016
+  source: AS020
+  relationship: registered_in
+  destination: L02
+  description: Tool or capability definitions may be registered and versioned as managed AI assets.
+- id: R017
+  source: AS009
+  relationship: stored_in
+  destination: K03
+  description: Persistent or semi-persistent AI memory state is stored in the AI Memory component.
+- id: R018
+  source: AS007
+  relationship: stored_in
+  destination: K04
+  description: Embeddings, index entries, chunk metadata, and related indexed content are stored in the Vector Store
+    / Search Index.
+- id: R019
+  source: AS008
+  relationship: stored_in
+  destination: K05
+  description: Graph entities, relationships, attributes, and related structured knowledge are stored in the Knowledge
+    Graph / Structured Knowledge component.
+- id: R020
+  source: AS021
+  relationship: stored_in
+  destination: I03
+  description: Credentials and secret material may be stored or brokered by a Secrets / Credential Service.
+- id: R021
+  source: AS028
+  relationship: stored_in
+  destination: C02
+  description: AI activity logs and traces may be retained by the Observability / Audit capability.
+- id: R022
+  source: AS029
+  relationship: stored_in
+  destination: C02
+  description: Security and policy events may be retained by the Observability / Audit capability.
+- id: R023
+  source: AS026
+  relationship: managed_by
+  destination: C04
+  description: AI inventory and governance records are subject to administrative and governance authority exercised
+    by governance, risk, and compliance processes or systems.
+- id: R024
+  source: T01
+  relationship: exposed_by
+  destination: P03
+  description: A tool or capability may be advertised and made available through an MCP server independently of
+    any particular invocation.
+- source: A02
+  relationship: configured_by
+  destination: AS001
+  description: An agent runtime or orchestrator may be governed by standing system-level instructions or operating
+    policy that configure its orchestration behavior.
+  id: R025
+- source: I02
+  relationship: configured_by
+  destination: AS023
+  description: An authorization or policy decision component may be configured by standing authorization policies
+    used to evaluate access and action decisions.
+  id: R026
+- source: C03
+  relationship: configured_by
+  destination: AS024
+  description: An evaluation or testing component may be configured by evaluation datasets or test cases that define
+    the scenarios it exercises.
+  id: R027
+- source: AS027
+  relationship: stored_in
+  destination: C02
+  description: Human approval decision records may be retained by the observability and audit capability as operational
+    evidence.
+  id: R028
+- source: T01
+  relationship: exposed_by
+  destination: P04
+  description: A tool or capability may be advertised or made available through an integration gateway or API management
+    layer independently of any particular invocation.
+  id: R029

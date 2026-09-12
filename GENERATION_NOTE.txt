@@ -1,0 +1,2 @@
+Mermaid files were not pre-generated due to: name '__file__' is not defined
+Run scripts/generate_mermaid.py after installing requirements.txt

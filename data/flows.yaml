@@ -1,0 +1,405 @@
+flows:
+- id: F001
+  name: User Interaction
+  source: U01
+  destination: APP02
+  description: Human user interacts with an AI client or user interface.
+  interaction_type: request_response
+  operation: none
+- id: F002
+  name: Client Request Submission
+  source: APP02
+  destination: APP01
+  description: Client or user interface submits a request to the AI application or
+    host.
+  interaction_type: request_response
+  operation: none
+- id: F003
+  name: Automated Initiation
+  source: U02
+  destination: APP01
+  description: Automated system, workload, scheduled process, webhook, or event initiates
+    an AI workflow without a human-facing client.
+  interaction_type: request_response
+  operation: execute
+- id: F004
+  name: Application Delegation
+  source: APP01
+  destination: A02
+  description: AI application delegates an agentic task or workflow to the agent runtime
+    or orchestrator.
+  interaction_type: request_response
+  operation: execute
+- id: F005
+  name: Agent Invocation
+  source: A02
+  destination: A01
+  description: Agent runtime invokes an agent to perform a goal-directed task.
+  interaction_type: request_response
+  operation: execute
+- id: F006
+  name: Multi-Agent Coordination
+  source: A02
+  destination: A03
+  description: Agent runtime delegates coordination of a multi-agent workflow to a
+    multi-agent coordinator.
+  interaction_type: request_response
+  operation: execute
+- id: F007
+  name: Agent Task Delegation
+  source: A03
+  destination: A01
+  description: Multi-agent coordinator assigns or delegates a task to an individual
+    agent.
+  interaction_type: request_response
+  operation: execute
+  mechanism: delegation
+- id: F008
+  name: Direct Model Inference
+  source: A01
+  destination: M01
+  description: Agent directly requests inference from a generative or foundation model
+    without using a model gateway.
+  interaction_type: request_response
+  operation: none
+- id: F009
+  name: Model Gateway Request
+  source: A01
+  destination: M04
+  description: Agent sends an inference request through a model gateway or router.
+  interaction_type: request_response
+  operation: none
+- id: F010
+  name: Internal Model Routing
+  source: M04
+  destination: M01
+  description: Model gateway routes an inference request to an internally managed
+    or directly reachable model.
+  interaction_type: request_response
+  operation: none
+- id: F011
+  name: External Provider Inference
+  source: M04
+  destination: X01
+  description: Model gateway routes an inference request to an external AI provider.
+  interaction_type: request_response
+  operation: none
+- id: F012
+  name: Context Build Request
+  source: A01
+  destination: K01
+  description: Agent requests construction of model context using instructions, state,
+    memory, retrieved information, and tool definitions.
+  interaction_type: request_response
+  operation: none
+- id: F013
+  name: Application Context Request
+  source: APP01
+  destination: K01
+  description: Non-agentic AI application requests construction of model context.
+  interaction_type: request_response
+  operation: none
+- id: F014
+  name: Knowledge Retrieval
+  source: K01
+  destination: K02
+  description: Context construction requests information relevant to the current task
+    from the retrieval service.
+  interaction_type: request_response
+  operation: read
+  mechanism: retrieval
+- id: F015
+  name: Memory Access
+  source: K01
+  destination: K03
+  description: Context construction reads or updates AI memory used to maintain conversational,
+    user, or agent state.
+  interaction_type: request_response
+  operation: mixed
+- id: F016
+  name: Query Embedding
+  source: K02
+  destination: M02
+  description: Retrieval service requests an embedding representation of a query for
+    semantic retrieval.
+  interaction_type: request_response
+  operation: none
+- id: F017
+  name: Vector / Index Search
+  source: K02
+  destination: K04
+  description: Retrieval service queries a vector store or search index for relevant
+    indexed content.
+  interaction_type: request_response
+  operation: read
+  mechanism: retrieval
+- id: F018
+  name: Knowledge Graph Query
+  source: K02
+  destination: K05
+  description: Retrieval service queries structured knowledge or a knowledge graph
+    for relevant entities and relationships.
+  interaction_type: request_response
+  operation: read
+  mechanism: retrieval
+- id: F019
+  name: Enterprise Data Retrieval
+  source: K02
+  destination: D01
+  description: Retrieval service queries enterprise-managed data sources for relevant
+    information.
+  interaction_type: request_response
+  operation: read
+- id: F020
+  name: Vendor-Hosted Data Retrieval
+  source: K02
+  destination: D02
+  description: Retrieval service queries vendor-hosted enterprise data sources for
+    relevant information.
+  interaction_type: request_response
+  operation: read
+- id: F021
+  name: External / Public Data Retrieval
+  source: K02
+  destination: D03
+  description: Retrieval service queries external or public information sources.
+  interaction_type: request_response
+  operation: read
+- id: F022
+  name: Enterprise Source Ingestion
+  source: K06
+  destination: D01
+  description: Knowledge ingestion pipeline reads enterprise-managed source content
+    for processing and indexing.
+  interaction_type: request_response
+  operation: read
+- id: F023
+  name: Vendor-Hosted Source Ingestion
+  source: K06
+  destination: D02
+  description: Knowledge ingestion pipeline reads vendor-hosted enterprise source
+    content for processing and indexing.
+  interaction_type: request_response
+  operation: read
+- id: F024
+  name: External / Public Source Ingestion
+  source: K06
+  destination: D03
+  description: Knowledge ingestion pipeline reads external or public source content
+    for processing and indexing.
+  interaction_type: request_response
+  operation: read
+- id: F025
+  name: Document Embedding
+  source: K06
+  destination: M02
+  description: Knowledge ingestion pipeline requests embeddings for content being
+    prepared for indexing.
+  interaction_type: request_response
+  operation: none
+- id: F026
+  name: Index Write
+  source: K06
+  destination: K04
+  description: Knowledge ingestion pipeline writes processed content, embeddings,
+    and metadata to a vector store or search index.
+  interaction_type: request_response
+  operation: write
+- id: F027
+  name: Knowledge Graph Write
+  source: K06
+  destination: K05
+  description: Knowledge ingestion pipeline writes structured entities, relationships,
+    or metadata to a knowledge graph.
+  interaction_type: request_response
+  operation: write
+- id: F028
+  name: Tool Invocation
+  source: A01
+  destination: T01
+  description: Agent invokes an application-defined tool or capability to retrieve
+    information, perform computation, or take an action.
+  interaction_type: request_response
+  operation: execute
+  mechanism: function_calling
+- id: F029
+  name: Code Execution Request
+  source: A01
+  destination: T02
+  description: Agent requests execution of code within an isolated sandbox.
+  interaction_type: request_response
+  operation: execute
+- id: F030
+  name: MCP Client Request
+  source: A01
+  destination: P02
+  description: Agent sends a capability request through an MCP client implementation.
+  interaction_type: request_response
+  operation: mixed
+- id: F031
+  name: MCP Client-Server Exchange
+  source: P02
+  destination: P03
+  description: MCP client and MCP server exchange protocol messages for capability
+    discovery and invocation.
+  interaction_type: bidirectional
+  operation: mixed
+  protocol: mcp
+- id: F032
+  name: MCP Capability Dispatch
+  source: P03
+  destination: T01
+  description: MCP server dispatches an approved capability invocation to a tool or
+    executable capability.
+  interaction_type: request_response
+  operation: execute
+- id: F033
+  name: External Platform MCP Access
+  source: X03
+  destination: P03
+  description: External AI application or platform initiates access to enterprise
+    capabilities exposed through an MCP server.
+  interaction_type: request_response
+  operation: mixed
+  protocol: mcp
+- id: F034
+  name: Tool Enterprise Data Access
+  source: T01
+  destination: D01
+  description: Tool reads from, writes to, or executes an action against enterprise-managed
+    data or systems.
+  interaction_type: request_response
+  operation: mixed
+- id: F035
+  name: Tool Vendor-Hosted Data Access
+  source: T01
+  destination: D02
+  description: Tool reads from, writes to, or executes an action against vendor-hosted
+    enterprise data or systems.
+  interaction_type: request_response
+  operation: mixed
+- id: F036
+  name: Tool External / Public Data Access
+  source: T01
+  destination: D03
+  description: Tool accesses external or public data sources.
+  interaction_type: request_response
+  operation: mixed
+- id: F037
+  name: External Service Call
+  source: T01
+  destination: X02
+  description: Tool invokes a third-party service, website, SaaS API, or other external
+    service.
+  interaction_type: request_response
+  operation: mixed
+- id: F038
+  name: Integration Gateway Request
+  source: T01
+  destination: P04
+  description: Tool routes a non-MCP integration request through an integration gateway
+    or API management layer.
+  interaction_type: request_response
+  operation: mixed
+- id: F039
+  name: External Service Routing
+  source: P04
+  destination: X02
+  description: Integration gateway routes a managed request to an external service.
+  interaction_type: request_response
+  operation: mixed
+- id: F040
+  name: Identity Authentication
+  source: APP01
+  destination: I01
+  description: AI application authenticates a human or workload identity or validates
+    an identity assertion with the identity provider.
+  interaction_type: request_response
+  operation: none
+- id: F041
+  name: Authorization Decision
+  source: A02
+  destination: I02
+  description: Agent runtime requests an authorization or policy decision before allowing
+    an agent action or resource access.
+  interaction_type: request_response
+  operation: none
+- id: F042
+  name: Credential Retrieval
+  source: T01
+  destination: I03
+  description: Tool retrieves or obtains scoped credentials, secrets, or access tokens
+    required to invoke a protected resource.
+  interaction_type: request_response
+  operation: read
+- id: F043
+  name: Guardrail Evaluation
+  source: A02
+  destination: C01
+  description: Agent runtime submits prompts, outputs, proposed actions, or other
+    AI behavior for guardrail evaluation.
+  interaction_type: request_response
+  operation: none
+- id: F044
+  name: Human Approval
+  source: A02
+  destination: C05
+  description: Agent runtime submits a proposed high-impact action for explicit human
+    approval, rejection, modification, or escalation before execution.
+  interaction_type: request_response
+  operation: none
+- id: F045
+  name: Telemetry
+  source: A02
+  destination: C02
+  description: Agent runtime emits AI execution telemetry and audit information.
+  interaction_type: notification
+  operation: write
+- id: F046
+  name: Application Evaluation
+  source: C03
+  destination: APP01
+  description: Evaluation or testing system exercises the AI application for quality,
+    safety, security, and regression testing.
+  interaction_type: request_response
+  operation: none
+- id: F047
+  name: Governance Inventory
+  source: APP01
+  destination: C04
+  description: AI application is registered with governance, risk, compliance, ownership,
+    or inventory processes.
+  interaction_type: notification
+  operation: write
+- id: F048
+  name: Training Output
+  source: L01
+  destination: L02
+  description: Training or fine-tuning pipeline publishes a model or other AI asset
+    to the AI asset or model registry.
+  interaction_type: notification
+  operation: write
+- id: F049
+  name: Approved Asset Deployment
+  source: L02
+  destination: L03
+  description: Approved AI asset is promoted from the registry to a deployment or
+    serving platform.
+  interaction_type: request_response
+  operation: write
+- id: F050
+  name: Development Artifact Registration
+  source: L04
+  destination: L02
+  description: AI development toolchain publishes or registers models, prompts, agent
+    definitions, datasets, tool definitions, or other AI assets.
+  interaction_type: notification
+  operation: write
+- id: F051
+  name: Dependency Acquisition
+  source: L05
+  destination: L04
+  description: AI development toolchain obtains pretrained models, libraries, containers,
+    datasets, or other dependencies from an upstream source.
+  interaction_type: request_response
+  operation: read

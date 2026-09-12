@@ -1,0 +1,288 @@
+model_notes:
+- This file defines canonical trust-boundary patterns that may apply in concrete AI architectures; it does not assert
+  that every deployment instantiates every boundary.
+- A trust boundary exists where identity, administrative control, execution isolation, ownership, policy authority, data
+  handling, or security assumptions materially change.
+- A network hop or component-to-component flow is not automatically a trust boundary.
+- Flows identify candidate crossings. Asset crossings can be inferred by joining each boundary's flows with asset-bindings.yaml.
+- Trust boundaries are intentionally separate from components, flows, assets, relationships, and asset bindings.
+- Concrete deployments may collapse, split, or add boundaries depending on hosting, ownership, tenancy, network placement,
+  and operating model.
+- side_a and side_b identify component sets participating on each side of a boundary pattern. Only the flows explicitly
+  listed for that boundary are canonical crossings; no Cartesian product between side_a and side_b is implied.
+boundary_types:
+- name: human_interaction
+  description: Separates a human actor from the software surface through which the actor interacts with the AI system.
+- name: service_interface
+  description: Separates independently operated or independently authenticated software services where service identity,
+    policy, or administrative control changes.
+- name: external_provider
+  description: Separates enterprise-controlled AI processing from an externally operated AI model or inference provider.
+- name: vendor_operated
+  description: Separates enterprise-controlled processing from a vendor-operated SaaS or cloud service that contains
+    enterprise information under an enterprise tenant or account.
+- name: external_data
+  description: Separates enterprise-controlled processing from public, Internet-originated, partner, or otherwise externally
+    controlled data sources.
+- name: external_service
+  description: Separates enterprise-controlled processing from an externally operated non-AI service or API.
+- name: capability_exposure
+  description: Separates enterprise capabilities from an external AI application, platform, client, or integration consumer
+    to which those capabilities are exposed.
+- name: execution_isolation
+  description: Separates reasoning or orchestration components from an isolated execution environment intended to contain
+    code, commands, or other active content.
+- name: privileged_security_service
+  description: Separates ordinary application or workload execution from privileged identity, authorization, credential,
+    or security-decision services.
+- name: human_approval
+  description: Separates automated agency from explicit human decision authority where approval materially changes who
+    is authorized to decide whether an action proceeds.
+- name: lifecycle_promotion
+  description: Separates development, registry, approval, or artifact-management stages from a later lifecycle stage
+    with different execution or release trust.
+- name: supply_chain
+  description: Separates internally controlled development or lifecycle processes from externally sourced models, software,
+    datasets, containers, or other dependencies.
+trust_boundaries:
+- id: TB001
+  name: Human / AI Client Boundary
+  type: human_interaction
+  side_a:
+  - U01
+  side_b:
+  - APP02
+  flows:
+  - F001
+  description: Separates a human user from the AI client or user interface receiving user-controlled input and presenting
+    AI-controlled output.
+  condition: Applies when U01 interacts through APP02 rather than being modeled as part of the same trusted software
+    execution context.
+  security_significance: Marks the transition between human-controlled input and application processing, including untrusted
+    prompt content, output presentation, session context, and user identity.
+- id: TB002
+  name: AI Client / Application Host Boundary
+  type: service_interface
+  side_a:
+  - APP02
+  side_b:
+  - APP01
+  flows:
+  - F002
+  description: Separates the client or user-interface tier from the backend AI application or host.
+  condition: Applies when APP02 and APP01 execute in separately trusted processes, devices, tiers, or administrative
+    contexts, as is common with browser, mobile, desktop, and API clients.
+  security_significance: Common authentication, session, authorization, input-validation, data-exposure, and client-tampering
+    boundary.
+- id: TB003
+  name: Automated Initiator / AI Application Boundary
+  type: service_interface
+  side_a:
+  - U02
+  side_b:
+  - APP01
+  flows:
+  - F003
+  description: Separates an automated or system initiator from the AI application it invokes.
+  condition: Applies when the initiating workload has a distinct service identity, policy domain, tenant, owner, or administrative
+    boundary from APP01.
+  security_significance: Important for workload identity, delegated authority, replay, service-to-service authorization,
+    and distinguishing human from machine initiation.
+- id: TB004
+  name: External AI Provider Boundary
+  type: external_provider
+  side_a:
+  - M04
+  side_b:
+  - X01
+  flows:
+  - F011
+  description: Separates enterprise-controlled model routing from an externally operated AI provider.
+  condition: Applies when X01 is outside the enterprise's direct administrative and execution control.
+  security_significance: Model input, model output, sensitive context, provider credentials, retention terms, model behavior,
+    and provider-side compromise become cross-organizational concerns.
+- id: TB005
+  name: Vendor-Hosted Enterprise Data Boundary
+  type: vendor_operated
+  side_a:
+  - K02
+  - K06
+  - T01
+  side_b:
+  - D02
+  flows:
+  - F020
+  - F023
+  - F035
+  description: Separates enterprise-controlled AI processing from vendor-operated SaaS or cloud data sources containing
+    enterprise information.
+  condition: Applies when D02 is operated by a third party even though the enterprise controls the tenant, account, permissions,
+    or information.
+  security_significance: Captures the distinction between enterprise information ownership and vendor operational control,
+    including tenant isolation, delegated authorization, data residency, API exposure, and provider compromise.
+- id: TB006
+  name: External / Public Data Boundary
+  type: external_data
+  side_a:
+  - K02
+  - K06
+  - T01
+  side_b:
+  - D03
+  flows:
+  - F021
+  - F024
+  - F036
+  description: Separates enterprise-controlled processing from public or externally controlled information sources.
+  condition: Applies when the enterprise does not control the integrity, provenance, publication process, or security
+    posture of D03.
+  security_significance: Marks a provenance and integrity transition for externally controlled content, including content
+    ingestion, external-data handling, and downstream reliance on information the enterprise does not govern.
+- id: TB007
+  name: External Service Boundary
+  type: external_service
+  side_a:
+  - T01
+  - P04
+  side_b:
+  - X02
+  flows:
+  - F037
+  - F039
+  description: Separates enterprise AI tools or integration infrastructure from an externally operated service or API.
+  condition: Applies when X02 is outside the enterprise's direct administrative or execution control.
+  security_significance: Relevant to outbound data disclosure, action authorization, third-party API trust, credential
+    use, response integrity, and externally controlled service behavior.
+- id: TB008
+  name: External AI Platform / Capability Exposure Boundary
+  type: capability_exposure
+  side_a:
+  - X03
+  side_b:
+  - P03
+  flows:
+  - F033
+  description: Separates an external AI application or platform from enterprise capabilities exposed through an integration
+    server such as MCP.
+  condition: Applies when X03 is operated in a different trust, tenant, ownership, or administrative domain from P03
+    and the capabilities behind it.
+  security_significance: Important where external consumers can discover or invoke enterprise capabilities, including
+    delegated identity, authorization scope, capability exposure, and inbound action requests.
+- id: TB009
+  name: Code Execution Isolation Boundary
+  type: execution_isolation
+  side_a:
+  - A01
+  side_b:
+  - T02
+  flows:
+  - F029
+  description: Separates AI reasoning from an environment capable of executing code, commands, notebooks, scripts, or
+    other active workloads.
+  condition: Applies when T02 is intentionally isolated from the agent/runtime, host, or surrounding infrastructure.
+  security_significance: Defines the containment boundary for generated or supplied code, including host access, filesystem
+    and network permissions, resource use, and exposure of privileged execution context.
+- id: TB010
+  name: Application / Identity Provider Boundary
+  type: privileged_security_service
+  side_a:
+  - APP01
+  side_b:
+  - I01
+  flows:
+  - F040
+  description: Separates the AI application from a privileged identity provider responsible for authentication and identity
+    assertions.
+  condition: Applies when I01 operates as a distinct privileged identity authority rather than as logic embedded within
+    the same trust context as APP01.
+  security_significance: Concentrates authentication state, identity assertions, session establishment, federation, and
+    related privilege transitions at a dedicated security authority.
+- id: TB011
+  name: Automated Action / Human Approval Boundary
+  type: human_approval
+  side_a:
+  - A02
+  side_b:
+  - C05
+  flows:
+  - F044
+  description: Separates automated orchestration and proposed actions from an explicit human decision authority.
+  condition: Applies when a human approval decision represents a genuine transfer of decision authority from automated
+    agency to human judgment before a high-impact, sensitive, irreversible, or policy-significant action proceeds.
+  security_significance: Represents a deliberate authority transition from automated execution to human judgment, making
+    approval integrity, decision context, and authorization continuity security-relevant.
+- id: TB012
+  name: Managed Asset / Runtime Promotion Boundary
+  type: lifecycle_promotion
+  side_a:
+  - L02
+  side_b:
+  - L03
+  flows:
+  - F049
+  description: Separates managed, approved, or registered AI assets from the platform on which they are deployed or served.
+  condition: Applies when promotion from L02 to L03 represents a release, approval, environment, privilege, or operational-state
+    transition.
+  security_significance: Important for artifact integrity, approval enforcement, provenance, deployment authorization,
+    rollback, environment separation, and preventing unapproved assets from reaching runtime.
+- id: TB013
+  name: Development / Managed Registry Boundary
+  type: lifecycle_promotion
+  side_a:
+  - L01
+  - L04
+  side_b:
+  - L02
+  flows:
+  - F048
+  - F050
+  description: Separates model-development and AI-development activities from managed registration, versioning, provenance,
+    or approval of resulting assets.
+  condition: Applies when L02 represents a controlled repository or registry distinct from development and training environments,
+    and registration represents a genuine provenance, vetting, approval, or release checkpoint rather than incidental
+    logging.
+  security_significance: Useful for provenance capture, artifact integrity, approval gates, development-output vetting,
+    and unauthorized registration.
+- id: TB014
+  name: Upstream AI Supply Chain Boundary
+  type: supply_chain
+  side_a:
+  - L05
+  side_b:
+  - L04
+  flows:
+  - F051
+  description: Separates externally sourced models, libraries, containers, datasets, and other dependencies from the
+    internal AI development toolchain that acquires them.
+  condition: Applies when upstream assets originate outside the organization's controlled development and provenance
+    domain.
+  security_significance: Primary boundary for externally sourced dependencies and artifacts whose integrity, provenance,
+    maintenance, and publication process are not controlled by the organization.
+- id: TB015
+  name: Orchestrator / Authorization Authority Boundary
+  type: privileged_security_service
+  side_a:
+  - A02
+  side_b:
+  - I02
+  flows:
+  - F041
+  description: Separates agent orchestration from a privileged authorization or policy-decision authority.
+  condition: Applies when I02 makes authorization or policy decisions as a distinct privileged authority rather than
+    as logic embedded within the same trust context as A02.
+  security_significance: Concentrates policy evaluation, delegated authority, allow or deny decisions, and other authorization
+    outcomes at a security-critical decision point.
+- id: TB016
+  name: Tool / Credential Service Boundary
+  type: privileged_security_service
+  side_a:
+  - T01
+  side_b:
+  - I03
+  flows:
+  - F042
+  description: Separates tool or capability execution from a privileged secrets or credential service.
+  condition: Applies when I03 is a distinct privileged authority responsible for custody or issuance of secrets, credentials,
+    tokens, or other sensitive authentication material.
+  security_significance: Concentrates credential retrieval, secret handling, delegated access, token issuance, and privilege
+    material at a dedicated high-value security boundary.

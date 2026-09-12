@@ -1,0 +1,64 @@
+# Threat taxonomy draft.
+# Threat mappings are intentionally sparse in v0.1 and should be expanded after
+# the component and flow taxonomy stabilizes.
+
+threats:
+  - id: TH001
+    name: Prompt Injection
+    description: Attacker-supplied instructions alter model or agent behavior.
+    applies_to_components: [APP01, A01, K01]
+    applies_to_flows: [F001, F005]
+
+  - id: TH002
+    name: Indirect Prompt Injection
+    description: Malicious instructions embedded in retrieved or tool-supplied content influence AI behavior.
+    applies_to_components: [K02, D01, D02, D03, T01]
+    applies_to_flows: [F006, F008, F009, F010, F016, F017, F018]
+
+  - id: TH003
+    name: Memory Poisoning
+    description: Malicious or incorrect information is persisted into AI memory and affects future behavior.
+    applies_to_components: [K03]
+    applies_to_flows: [F007]
+
+  - id: TH004
+    name: Excessive Agency
+    description: An agent is allowed to take actions beyond the minimum authority required.
+    applies_to_components: [A01, A02, T01, I02]
+    applies_to_flows: [F011, F012, F013, F015, F022]
+
+  - id: TH005
+    name: Tool Poisoning
+    description: Tool metadata, implementation, or returned results are maliciously altered to influence agent behavior.
+    applies_to_components: [P03, T01]
+    applies_to_flows: [F014, F015]
+
+  - id: TH006
+    name: Sensitive Data Disclosure
+    description: Sensitive data is exposed through model context, logs, external providers, tools, or outputs.
+    applies_to_components: [K01, K03, M04, X01, C02]
+    applies_to_flows: [F004, F005, F007, F019, F025]
+
+  - id: TH007
+    name: Credential Theft or Misuse
+    description: Credentials used by AI agents, tools, or connectors are stolen, replayed, leaked, or over-scoped.
+    applies_to_components: [I03, T01, P03]
+    applies_to_flows: [F023]
+
+  - id: TH008
+    name: Model Supply Chain Compromise
+    description: Model artifacts, dependencies, or provenance are tampered with before deployment.
+    applies_to_components: [L01, L02, L03, L04, M01]
+    applies_to_flows: [F028, F029, F030, F031]
+
+  - id: TH009
+    name: Data Poisoning
+    description: Training, retrieval, or operational data is maliciously modified to influence AI output or decisions.
+    applies_to_components: [D01, D02, D03, L01, K02]
+    applies_to_flows: [F008, F009, F010]
+
+  - id: TH010
+    name: Unauthorized Tool Invocation
+    description: A user, agent, or compromised component invokes a capability without proper authorization.
+    applies_to_components: [A01, A02, P01, P02, P03, T01]
+    applies_to_flows: [F011, F012, F013, F014, F015]
